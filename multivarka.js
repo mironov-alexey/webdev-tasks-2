@@ -1,6 +1,6 @@
 'use strict'
 const MongoClient = require('mongodb').MongoClient;
-
+const mongoHelper = require('./mongohelper');
 class Query {
     static server(connectionString) {
         return {
@@ -25,20 +25,24 @@ class Query {
         return this;
     }
     equal(value) {
-        var constraint = this.isNegated ? {$ne: value} : value;
-        return this.addConstraint(constraint);
+        return this.addConstraint(mongoHelper
+            .constraintFactory
+            .equal[this.isNegated](value));
     }
     lessThan(value) {
-        var constraint = this.isNegated ? {$gte: value} : {$lt: value};
-        return this.addConstraint(constraint);
+        return this.addConstraint(mongoHelper
+            .constraintFactory
+            .lessThan[this.isNegated](value));
     }
     greaterThan(value) {
-        var constraint = this.isNegated ? {$lte: value} : {$gt: value};
-        return this.addConstraint(constraint);
+        return this.addConstraint(mongoHelper
+            .constraintFactory
+            .greaterThan[this.isNegated](value));
     }
     include(collection) {
-        var constraint = this.isNegated ? {$nin: collection} : {$in: collection};
-        return this.addConstraint(constraint);
+        return this.addConstraint(mongoHelper
+            .constraintFactory
+            .include[this.isNegated](collection));
     }
     addConstraint(constraint) {
         var subQuery = {};

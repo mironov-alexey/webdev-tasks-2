@@ -19,7 +19,8 @@ multivarka
     .where('b').not().equal(1)
     .where('c')
     .include([1, 2, 3, 4, 5, 9])
-    .where('c').not().greaterThan(4).lessThan(3)
+    .where('c').not().greaterThan(4)
+    .where('c').greaterThan(2)
     .find((err, res) => {
             if (err) {
                 console.log(err);
