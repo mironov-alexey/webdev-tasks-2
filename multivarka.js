@@ -34,10 +34,10 @@ class Query {
             .constraintFactory
             .lessThan[this.isNegated](value));
     }
-    greaterThan(value) {
+    greatThan(value) {
         return this.addConstraint(mongoHelper
             .constraintFactory
-            .greaterThan[this.isNegated](value));
+            .greatThan[this.isNegated](value));
     }
     include(collection) {
         return this.addConstraint(mongoHelper

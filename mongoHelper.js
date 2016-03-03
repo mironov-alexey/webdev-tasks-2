@@ -7,7 +7,7 @@ constraintFactory = {
         true: value => {return {$gte: value}},
         false: value => {return {$lt: value}}
     },
-    greaterThan: {
+    greatThan: {
         true: value => {return {$lte: value}},
         false: value => {return {$gt: value}}
     },

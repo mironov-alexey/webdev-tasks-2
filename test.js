@@ -19,8 +19,8 @@ const multivarka = require('./multivarka');
 //    .where('b').not().equal(1)
 //    .where('c')
 //    .include([1, 2, 3, 4, 5, 9])
-//    .where('c').not().greaterThan(4)
-//    .where('c').greaterThan(2)
+//    .where('c').not().greatThan(4)
+//    .where('c').greatThan(2)
 //    .find((err, res) => {
 //            if (err) {
 //                console.log(err);
@@ -34,7 +34,7 @@ multivarka
     .server('mongodb://localhost/test')
     .collection('vairables')
     .where('c')
-    .greaterThan(3)
+    .greatThan(3)
     .where('b')
     .not()
     .equal(3)
