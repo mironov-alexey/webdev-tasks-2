@@ -11,38 +11,70 @@ const multivarka = require('./multivarka');
     { "_id" : ObjectId("56d730e0f800d9253a4ca985"), "a" : 1, "b" : 3, "c" : 5 }
 */
 
+var findCb = (err, res) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(res);
+    }
+};
 
-//multivarka
-//    .server('mongodb://localhost/test')
-//    .collection('variables')
-//    .where('a').equal(1)
-//    .where('b').not().equal(1)
-//    .where('c')
-//    .include([1, 2, 3, 4, 5, 9])
-//    .where('c').not().greatThan(4)
-//    .where('c').greatThan(2)
-//    .find((err, res) => {
-//            if (err) {
-//                console.log(err);
-//            } else {
-//                console.log(res);
-//            }
-//        }
-//    );
+var onChangeCb = (err, res) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(res.result);
+    }
+};
 
-multivarka
+test2 = _ => multivarka
     .server('mongodb://localhost/test')
-    .collection('vairables')
+    .collection('variables')
+    .where('a').equal(1)
+    .where('b').not().equal(1)
+    .where('c')
+    .include([1, 2, 3, 4, 5, 9])
+    .where('c').not().greatThan(4)
+    .where('c').greatThan(2)
+    .find(findCb);
+
+test1 = _ => multivarka
+    .server('mongodb://localhost/test')
+    .collection('variables')
     .where('c')
     .greatThan(3)
     .where('b')
     .not()
     .equal(3)
-    .find((err, res) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(res);
-            }
-        }
-    );
+    .find();
+insertTest = _ => multivarka
+    .server('mongodb://localhost/test')
+    .collection('variables')
+    .insert({a: 0, b: 0, c: 0}, onChangeCb);
+
+updateTest = _ => multivarka
+    .server('mongodb://localhost/test')
+    .collection('variables')
+    .where('a')
+    .equal(0)
+    .set('a', -1)
+    .update(onChangeCb);
+
+removeTest = _ => multivarka
+    .server('mongodb://localhost/test')
+    .collection('variables')
+    .where('b')
+    .equal(0)
+    .remove(onChangeCb);
+
+findAll = _ => multivarka
+    .server('mongodb://localhost/test')
+    .collection('variables')
+    .find(findCb);
+
+//test1();
+//test2();
+//insertTest();
+//updateTest();
+//removeTest();
+//findAll();

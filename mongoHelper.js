@@ -1,20 +1,20 @@
 constraintFactory = {
-    equal: {
-        true: value => {return {$ne: value}},
-        false: value => {return {$eq: value}}
-    },
-    lessThan: {
-        true: value => {return {$gte: value}},
-        false: value => {return {$lt: value}}
-    },
-    greatThan: {
-        true: value => {return {$lte: value}},
-        false: value => {return {$gt: value}}
-    },
-    include: {
-        true: collection => {return {$nin: collection}},
-        false: collection => {return {$in: collection}}
-    }
+    equal: [
+        value => ({$eq: value}),
+        value => ({$ne: value})
+    ],
+    lessThan: [
+        value => ({$lt: value}),
+        value => ({$gte: value})
+    ],
+    greatThan: [
+        value => ({$gt: value}),
+        value => ({$lte: value})
+    ],
+    include: [
+        collection => ({$in: collection}),
+        collection => ({$nin: collection})
+    ]
 };
 
 module.exports.constraintFactory = constraintFactory;
