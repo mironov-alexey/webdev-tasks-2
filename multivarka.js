@@ -10,7 +10,6 @@ class Query {
     constructor (connectionString, collection) {
         this.connectionString = connectionString;
         this.collection = collection;
-        //this.queryObject = {};
         this.queryObject = {$and:[{}]};
         this.dbFunction = undefined;
         this.field = undefined;
